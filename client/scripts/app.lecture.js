@@ -41,7 +41,6 @@ var app = {
         order: '-createdAt'
       },
       success: function(data) {
-        console.log(data);
         if(!data.results || !data.results.length) { return; }
 
         app.messages = data.results;
