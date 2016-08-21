@@ -10,9 +10,10 @@ var connection = mysql.createConnection({
   password: 'root',
   database: 'chat'
 });
+connection.connect();
 
 exports.checkIfUsernameExists = function(message, tempMessage, callback) {
-  connection.connect();
+  
   connection.query('SELECT id FROM users WHERE username=\'' + message.username + '\'', function(error, results, fields) {
     if (error) { throw error; }
 
@@ -55,7 +56,6 @@ exports.createMessage = function(tempMessage) {
     + '\')', function(error, results, fields) {
     if (error) { throw error; }
   });
-  connection.end();
 };
 
 
