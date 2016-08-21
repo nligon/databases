@@ -7,8 +7,15 @@ module.exports = {
       utils.sendResponse(response, exports.getRequest);
     }, 
     post: function (message) {
-      db.createMessage(message, function(completedMessage) {
-        db.putMessageInDatabase(completedMessage);
+      var tempMessage = {
+        userId: 0,
+        text: message.text,
+        roomId: 0
+      };
+      db.checkIfUsernameExists(message, tempMessage, function(message) {
+        db.checkIfRoomExists(message, tempMessage, function(message) {
+          db.createMessage(tempMessage);
+        });
       });
     } // a function which can be used to insert a message into the database
   },
